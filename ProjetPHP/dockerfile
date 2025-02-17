@@ -1,0 +1,20 @@
+# Utilisation de PHP 8 avec Apache
+FROM php:8.2-apache
+
+# Activation des modules Apache et réécriture d'URL
+RUN a2enmod rewrite
+
+# Installation des extensions PHP nécessaires
+RUN docker-php-ext-install pdo pdo_mysql
+
+# Définition du répertoire de travail
+WORKDIR /var/www/html
+
+# Copie des fichiers du projet dans le conteneur
+COPY . .
+
+# Attribution des droits corrects
+RUN chown -R www-data:www-data /var/www/html
+
+# Exposition du port 80
+EXPOSE 80
