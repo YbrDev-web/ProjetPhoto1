@@ -1,0 +1,105 @@
+@use "../partials/mixins" as m;
+@use "../partials/functions" as f;
+
+@layer components {
+  .navbar {
+    @include m.theme-colors($light-theme: true);
+    padding: f.rem(16) 0;
+
+    &--dark {
+      @include m.theme-colors($light-theme: false);
+      & form input {
+        border-color: var(--dark-700);
+      }
+    }
+
+    .container {
+      position: relative;
+      @include m.flexbox($direction: column, $align: flex-start);
+      @media (width >= f.screen(md)) {
+        @include m.flexbox($direction: row, $align: center, $gap: f.rem(30));
+      }
+    }
+    a {
+      @include m.resetA;
+      color: color-mix(in srgb, currentColor 50%, transparent);
+      &.selected {
+        color: inherit;
+      }
+      &.disabled {
+        cursor: default;
+        color: color-mix(in srgb, currentColor 30%, transparent);
+      }
+    }
+    ul {
+      @include m.resetList;
+      @include m.flexbox(
+        $direction: column,
+        $align: flex-start,
+        $gap: f.rem(8)
+      );
+      flex-grow: 1;
+      overflow: hidden;
+      height: 0;
+      margin-top: 0;
+      transition: all 0.3s;
+      &.active {
+        margin-top: 1rem;
+        & ~ .navbar__button {
+          border-color: inherit;
+          border-width: thin;
+          border-style: solid;
+          border-radius: f.rem(4);
+        }
+      }
+      @media (width >= f.screen(md)) {
+        @include m.flexbox(
+          $direction: row,
+          $align: flex-start,
+          $gap: f.rem(10)
+        );
+        height: auto !important; // pour être sûr que cette règle l'emporte sur les styles ajoutés par jsÒ
+        &.active {
+          margin-top: 0;
+        }
+      }
+    }
+    form {
+      display: none;
+      @media (width >= f.screen(lg)) {
+        @include m.flexbox($gap: f.rem(10));
+      }
+      & input {
+        background-color: transparent;
+      }
+      & .button {
+        @include m.resetButton;
+        padding: f.rem(10) f.rem(16);
+        color: inherit;
+        border-width: f.rem(1);
+        border-style: solid;
+        border-color: inherit;
+
+        transition: filter 0.2s ease;
+        &:hover {
+          filter: contrast(0.1);
+        }
+      }
+    }
+    &__button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: inherit;
+      @include m.resetButton;
+      padding: f.rem(8);
+      @media (width >= f.screen(md)) {
+        display: none;
+      }
+    }
+    &__title {
+      color: inherit !important;
+      font-size: f.rem(22);
+    }
+  }
+}
