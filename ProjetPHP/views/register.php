@@ -1,6 +1,5 @@
 <?php include 'partials/header.php'; ?>
 
-<h2>Inscription</h2>
 <form action="/register.php" method="POST">
     <label for="username">Nom d'utilisateur :</label>
     <input type="text" name="username" required>
@@ -11,7 +10,8 @@
     <label for="password">Mot de passe :</label>
     <input type="password" name="password" required>
 
+    <div class="g-recaptcha" data-sitekey="TON_SITE_KEY"></div>
+
     <button type="submit">S'inscrire</button>
 </form>
-
-<?php include 'partials/footer.php'; ?>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
