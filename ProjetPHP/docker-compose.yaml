@@ -16,7 +16,7 @@ services:
     image: mysql:8.0
     container_name: mysql_db
     restart: always
-    command: --require-secure-transport=ON
+    command: --require-secure-transport=YES
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: gestion_photos
